@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SalvaPrato</title>
+    <title>SalvaPrato — Combata o Desperdício</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -13,7 +13,7 @@
         <div class="max-w-md mx-auto flex items-center gap-3">
             <span class="text-3xl">🥗</span>
             <div>
-                <h1 class="font-bold text-xl leading-none">SalvaPrato</h1>
+                <h1 class="font-bold text-xl leading-none tracking-tight">SalvaPrato</h1>
                 <p class="text-green-200 text-xs mt-0.5">Economize. Reduza o desperdício.</p>
             </div>
         </div>
@@ -21,18 +21,41 @@
 
     <nav class="bg-white shadow-sm sticky top-[72px] z-10">
         <div class="max-w-md mx-auto flex">
-            <button class="flex-1 py-3 text-sm font-semibold text-green-700 border-b-2 border-green-600">
+            <button id="tab-vitrine"
+                class="tab-btn aba-ativa flex-1 py-3 text-sm font-semibold border-b-2 transition-all"
+                onclick="mostrarView('vitrine')">
                 🛍 Ofertas
             </button>
-            <button class="flex-1 py-3 text-sm font-semibold text-gray-500 border-b-2 border-transparent">
+            <button id="tab-cadastro"
+                class="tab-btn aba-inativa flex-1 py-3 text-sm font-semibold border-b-2 transition-all"
+                onclick="mostrarView('cadastro')">
                 ➕ Publicar Oferta
             </button>
         </div>
     </nav>
 
-    <main class="max-w-md mx-auto p-4">
-        <p class="text-gray-400 text-center py-16">em construção...</p>
+    <main id="view-vitrine" class="max-w-md mx-auto p-4 pb-10">
+
+        <div id="estado-carregando" class="flex flex-col items-center justify-center py-16 text-gray-400">
+            <div class="spinner mb-4"></div>
+            <p class="text-sm">Carregando ofertas...</p>
+        </div>
+
+        <div id="estado-vazio" class="hidden flex-col items-center justify-center py-16 text-center">
+            <span class="text-6xl mb-4">🌿</span>
+            <h3 class="font-semibold text-gray-700 mb-1">Nenhuma oferta por enquanto</h3>
+            <p class="text-sm text-gray-500">Volte mais tarde ou seja o primeiro a publicar!</p>
+        </div>
+
+        <div id="grid-ofertas" class="hidden space-y-4">
+        </div>
+
     </main>
 
+    <main id="view-cadastro" class="hidden max-w-md mx-auto p-4 pb-10">
+        <p class="text-center text-gray-400 py-10">formulário em breve...</p>
+    </main>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>
