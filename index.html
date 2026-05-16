@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SalvaPrato — Combata o Desperdício</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-green-50 min-h-screen">
+
+    <!-- ===== CABEÇALHO ===== -->
+    <header class="bg-green-800 text-white py-4 px-4 shadow-lg sticky top-0 z-20">
+        <div class="max-w-md mx-auto flex items-center gap-3">
+            <span class="text-3xl">🥗</span>
+            <div>
+                <h1 class="font-bold text-xl leading-none tracking-tight">SalvaPrato</h1>
+                <p class="text-green-200 text-xs mt-0.5">Economize. Reduza o desperdício.</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== ABAS DE NAVEGAÇÃO ===== -->
+    <nav class="bg-white shadow-sm sticky top-[72px] z-10">
+        <div class="max-w-md mx-auto flex">
+            <button id="tab-vitrine"
+                class="tab-btn aba-ativa flex-1 py-3 text-sm font-semibold border-b-2 transition-all"
+                onclick="mostrarView('vitrine')">
+                🛍 Ofertas
+            </button>
+            <button id="tab-cadastro"
+                class="tab-btn aba-inativa flex-1 py-3 text-sm font-semibold border-b-2 transition-all"
+                onclick="mostrarView('cadastro')">
+                ➕ Publicar Oferta
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== VIEW: VITRINE (MORADOR) ===== -->
+    <main id="view-vitrine" class="max-w-md mx-auto p-4 pb-10">
+
+        <!-- Estado: Carregando -->
+        <div id="estado-carregando" class="flex flex-col items-center justify-center py-16 text-gray-400">
+            <div class="spinner mb-4"></div>
+            <p class="text-sm">Carregando ofertas...</p>
+        </div>
+
+        <!-- Estado: Nenhuma oferta -->
+        <div id="estado-vazio" class="hidden flex-col items-center justify-center py-16 text-center">
+            <span class="text-6xl mb-4">🌿</span>
+            <h3 class="font-semibold text-gray-700 mb-1">Nenhuma oferta por enquanto</h3>
+            <p class="text-sm text-gray-500">Volte mais tarde ou seja o primeiro a publicar!</p>
+        </div>
+
+        <!-- Grid de cards -->
+        <div id="grid-ofertas" class="hidden space-y-4">
+            <!-- Cards renderizados pelo JavaScript -->
+        </div>
+
+    </main>
+
+    <!-- ===== VIEW: CADASTRO (COMERCIANTE) ===== -->
+    <main id="view-cadastro" class="hidden max-w-md mx-auto p-4 pb-10">
+
+        <div class="bg-white rounded-2xl shadow-sm p-6">
+            <h2 class="text-lg font-bold text-green-800 mb-1">Publicar Nova Oferta</h2>
+            <p class="text-xs text-gray-500 mb-6">Preencha os dados e ajude a reduzir o desperdício da sua cidade.</p>
+
+            <form id="formulario-oferta" class="space-y-4" novalidate>
+
+                <div>
+                    <label class="label-campo" for="nome-comercio">Nome do Comércio</label>
+                    <input type="text" id="nome-comercio" placeholder="Ex: Padaria Estrela" required
+                        class="campo-input" autocomplete="organization" />
+                </div>
+
+                <div>
+                    <label class="label-campo" for="whatsapp">WhatsApp do Comércio</label>
+                    <input type="tel" id="whatsapp" placeholder="Ex: 5548999991234" required
+                        class="campo-input" />
+                    <p class="text-xs text-gray-400 mt-1">Código do país (55) + DDD + número, sem espaços ou traços.</p>
+                </div>
+
+                <div>
+                    <label class="label-campo" for="titulo">Título da Oferta</label>
+                    <input type="text" id="titulo" placeholder="Ex: Sacola Surpresa de Pães" required
+                        class="campo-input" />
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="label-campo" for="preco-original">Preço Original (R$)</label>
+                        <input type="number" id="preco-original" placeholder="20.00"
+                            step="0.01" min="0.01" required class="campo-input" />
+                    </div>
+                    <div>
+                        <label class="label-campo" for="preco-desconto">Preço c/ Desconto (R$)</label>
+                        <input type="number" id="preco-desconto" placeholder="10.00"
+                            step="0.01" min="0.01" required class="campo-input" />
+                    </div>
+                </div>
+
+                <button type="submit" id="btn-publicar"
+                    class="w-full bg-orange-500 hover:bg-orange-600 active:scale-95 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md mt-2">
+                    🚀 Publicar Oferta
+                </button>
+            </form>
+        </div>
+
+        <!-- Mensagem de sucesso -->
+        <div id="msg-sucesso" class="hidden mt-4 bg-green-100 border border-green-300 rounded-xl p-4 text-center">
+            <span class="text-3xl">✅</span>
+            <p class="font-semibold text-green-800 mt-2">Oferta publicada com sucesso!</p>
+            <p class="text-sm text-green-600 mt-1">Ela já aparece na vitrine para os moradores.</p>
+        </div>
+
+    </main>
+
+    <!-- ===== RODAPÉ ===== -->
+    <footer class="max-w-md mx-auto text-center py-6 text-xs text-gray-400">
+        <p>SalvaPrato — Menos desperdício, mais sabor. 🌱</p>
+    </footer>
+
+    <!-- app.js carregado como módulo ES para suportar os imports do Firebase -->
+    <script type="module" src="app.js"></script>
+
+</body>
+</html>
