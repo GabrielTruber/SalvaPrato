@@ -1,8 +1,3 @@
-// ================================================================
-//  Off Foods — app.js
-//  Lógica principal: Firebase, renderização de cards e navegação
-// ================================================================
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
     getFirestore,
@@ -14,16 +9,6 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-// ================================================================
-//  🔥 CONFIGURAÇÃO DO FIREBASE
-//  ---------------------------------------------------------------
-//  1. Acesse: https://console.firebase.google.com
-//  2. Abra seu projeto → Configurações do projeto (ícone de engrenagem)
-//  3. Role até "Seus aplicativos" → clique no app Web (</>)
-//  4. Copie o objeto firebaseConfig e cole abaixo substituindo
-//     cada valor de exemplo pelo valor real do seu projeto.
-// ================================================================
 const firebaseConfig = {
     apiKey:            "AIzaSyDqfGyDKoQjJ9ouZn9BmFc4SRPSRXuxAHE",
     authDomain:        "off-foods.firebaseapp.com",
@@ -32,30 +17,20 @@ const firebaseConfig = {
     messagingSenderId: "872278012069",
     appId:             "1:872278012069:web:1831259354d31de9561d4c"
 };
-// ================================================================
 
 const appFirebase = initializeApp(firebaseConfig);
 const db = getFirestore(appFirebase);
 
-// Referência à coleção principal no Firestore
 const colecaoOfertas = collection(db, "ofertas");
 
-// Emojis rotativos para ilustrar os cards
 const EMOJIS_ALIMENTO = ["🥖", "🥐", "🧁", "🍱", "🥗", "🥘", "🍞", "🧆", "🥙", "🍕", "🫔", "🥧"];
 
-
-// ================================================================
-//  NAVEGAÇÃO ENTRE VIEWS (SPA)
-// ================================================================
 window.mostrarView = function (nomeView) {
-    // Esconde todas as views
     document.getElementById("view-vitrine").classList.add("hidden");
     document.getElementById("view-cadastro").classList.add("hidden");
 
-    // Exibe a view selecionada
     document.getElementById("view-" + nomeView).classList.remove("hidden");
 
-    // Atualiza estilos das abas
     document.querySelectorAll(".tab-btn").forEach(btn => {
         btn.classList.remove("aba-ativa");
         btn.classList.add("aba-inativa");
@@ -65,12 +40,6 @@ window.mostrarView = function (nomeView) {
     abaAtiva.classList.add("aba-ativa");
 };
 
-
-// ================================================================
-//  UTILITÁRIOS
-// ================================================================
-
-// Formata número como moeda brasileira (R$ 10,00)
 function formatarBRL(valor) {
     return Number(valor).toLocaleString("pt-BR", {
         style: "currency",
@@ -78,14 +47,12 @@ function formatarBRL(valor) {
     });
 }
 
-// Calcula o percentual de desconto entre dois preços
 function calcularDesconto(original, desconto) {
     if (!original || original <= 0) return null;
     const pct = Math.round(((original - desconto) / original) * 100);
     return pct > 0 ? pct : null;
 }
 
-// Monta o link da API do WhatsApp com mensagem pré-preenchida
 function gerarLinkWhatsApp(telefone, titulo, precoDesconto) {
     const numero = telefone.replace(/\D/g, "");
     const mensagem =
@@ -93,22 +60,16 @@ function gerarLinkWhatsApp(telefone, titulo, precoDesconto) {
     return `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 }
 
-// Escapa HTML para evitar XSS ao inserir dados do Firestore na página
 function escaparHTML(texto) {
     const div = document.createElement("div");
     div.textContent = String(texto);
     return div.innerHTML;
 }
 
-// Retorna um emoji aleatório para o card
 function emojiAleatorio() {
     return EMOJIS_ALIMENTO[Math.floor(Math.random() * EMOJIS_ALIMENTO.length)];
 }
 
-
-// ================================================================
-//  CRIAÇÃO DE UM CARD DE OFERTA (HTML)
-// ================================================================
 function criarCardHTML(oferta) {
     const { id, nomeCom, whatsapp, titulo, precoOriginal, precoDesconto } = oferta;
 
@@ -142,11 +103,6 @@ function criarCardHTML(oferta) {
     `;
 }
 
-
-// ================================================================
-//  LISTENER EM TEMPO REAL — FIRESTORE
-//  onSnapshot atualiza a vitrine automaticamente a cada nova oferta
-// ================================================================
 const consultaOfertas = query(colecaoOfertas, orderBy("criadoEm", "desc"));
 
 onSnapshot(
@@ -183,23 +139,17 @@ onSnapshot(
     }
 );
 
-
-// ================================================================
-//  FORMULÁRIO DE CADASTRO DE OFERTA
-// ================================================================
 document.getElementById("formulario-oferta").addEventListener("submit", async (evento) => {
     evento.preventDefault();
 
     const btnPublicar = document.getElementById("btn-publicar");
 
-    // Coleta e limpa os valores do formulário
     const nomeCom       = document.getElementById("nome-comercio").value.trim();
     const whatsapp      = document.getElementById("whatsapp").value.trim().replace(/\D/g, "");
     const titulo        = document.getElementById("titulo").value.trim();
     const precoOriginal = parseFloat(document.getElementById("preco-original").value);
     const precoDesconto = parseFloat(document.getElementById("preco-desconto").value);
 
-    // Validações de negócio
     if (whatsapp.length < 10 || whatsapp.length > 15) {
         alert("Número de WhatsApp inválido.\nUse: código do país (55) + DDD + número.\nExemplo: 5548999991234");
         return;
@@ -210,7 +160,6 @@ document.getElementById("formulario-oferta").addEventListener("submit", async (e
         return;
     }
 
-    // Desativa o botão para evitar duplo envio
     btnPublicar.disabled = true;
     btnPublicar.textContent = "Publicando...";
 
@@ -221,18 +170,15 @@ document.getElementById("formulario-oferta").addEventListener("submit", async (e
             titulo,
             precoOriginal,
             precoDesconto,
-            criadoEm: serverTimestamp()   // usado para ordenar as ofertas
+            criadoEm: serverTimestamp()
         });
 
-        // Reseta o formulário
         evento.target.reset();
 
-        // Exibe mensagem de sucesso por 4 segundos
         const msgSucesso = document.getElementById("msg-sucesso");
         msgSucesso.classList.remove("hidden");
         setTimeout(() => msgSucesso.classList.add("hidden"), 4000);
 
-        // Redireciona para a vitrine após 1,5 s
         setTimeout(() => mostrarView("vitrine"), 1500);
 
     } catch (erro) {
