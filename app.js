@@ -25,13 +25,12 @@ import {
 //     cada valor de exemplo pelo valor real do seu projeto.
 // ================================================================
 const firebaseConfig = {
-    apiKey:            "AIzaSyB-_KgpWeycAE5CemuVgzswcPxew58cMnc",
-    authDomain:        "salvaprato-f4372.firebaseapp.com",
-    projectId:         "salvaprato-f4372",
-    storageBucket:     "salvaprato-f4372.firebasestorage.app",
-    messagingSenderId: "990738804829",
-    appId:             "1:990738804829:web:a07f467d9d729181fdddb4",
-    measurementId:     "G-F4SZVHRMY1"
+    apiKey:            "AIzaSyDqfGyDKoQjJ9ouZn9BmFc4SRPSRXuxAHE",
+    authDomain:        "off-foods.firebaseapp.com",
+    projectId:         "off-foods",
+    storageBucket:     "off-foods.firebasestorage.app",
+    messagingSenderId: "872278012069",
+    appId:             "1:872278012069:web:1831259354d31de9561d4c"
 };
 // ================================================================
 
