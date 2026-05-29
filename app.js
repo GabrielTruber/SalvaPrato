@@ -1,5 +1,5 @@
 // ================================================================
-//  SalvaPrato — app.js
+//  Off Foods — app.js
 //  Lógica principal: Firebase, renderização de cards e navegação
 // ================================================================
 
@@ -25,12 +25,13 @@ import {
 //     cada valor de exemplo pelo valor real do seu projeto.
 // ================================================================
 const firebaseConfig = {
-    apiKey:            "COLE_AQUI_SUA_API_KEY",
-    authDomain:        "COLE_AQUI.firebaseapp.com",
-    projectId:         "COLE_AQUI_SEU_PROJECT_ID",
-    storageBucket:     "COLE_AQUI.appspot.com",
-    messagingSenderId: "COLE_AQUI_SENDER_ID",
-    appId:             "COLE_AQUI_APP_ID"
+    apiKey:            "AIzaSyB-_KgpWeycAE5CemuVgzswcPxew58cMnc",
+    authDomain:        "salvaprato-f4372.firebaseapp.com",
+    projectId:         "salvaprato-f4372",
+    storageBucket:     "salvaprato-f4372.firebasestorage.app",
+    messagingSenderId: "990738804829",
+    appId:             "1:990738804829:web:a07f467d9d729181fdddb4",
+    measurementId:     "G-F4SZVHRMY1"
 };
 // ================================================================
 
@@ -89,7 +90,7 @@ function calcularDesconto(original, desconto) {
 function gerarLinkWhatsApp(telefone, titulo, precoDesconto) {
     const numero = telefone.replace(/\D/g, "");
     const mensagem =
-        `Olá! Vi a oferta *${titulo}* por ${formatarBRL(precoDesconto)} no SalvaPrato e gostaria de reservar! 🥗`;
+        `Olá! Vi a oferta *${titulo}* por ${formatarBRL(precoDesconto)} no Off Foods e gostaria de reservar! 🥗`;
     return `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 }
 

@@ -1,8 +1,8 @@
-# 🥗 SalvaPrato
+# 🥗 Off Foods
 
 > Plataforma web para redução do desperdício alimentar em comércios locais.
 
-**SalvaPrato** conecta padarias, mercadinhos e pequenos comércios que possuem alimentos excedentes ao final do dia com moradores da região que buscam economizar. Sem app para instalar, sem cadastro obrigatório, sem taxa — apenas uma vitrine simples e reserva via WhatsApp.
+**Off Foods** conecta padarias, mercadinhos e pequenos comércios que possuem alimentos excedentes ao final do dia com moradores da região que buscam economizar. Sem app para instalar, sem cadastro obrigatório, sem taxa — apenas uma vitrine simples e reserva via WhatsApp.
 
 ---
 
@@ -35,8 +35,8 @@
 
 ### Passo 1 — Clone o repositório
 ```bash
-git clone https://github.com/GabrielTruber/SalvaPrato.git
-cd SalvaPrato
+git clone https://github.com/GabrielTruber/Off Foods.git
+cd Off Foods
 ```
 
 ### Passo 2 — Configure o Firebase
@@ -83,7 +83,7 @@ Acesse `http://localhost:3000` no navegador.
 ## Estrutura do Projeto
 
 ```
-SalvaPrato/
+Off Foods/
 ├── index.html    ← Estrutura HTML: cabeçalho, abas, vitrine e formulário
 ├── style.css     ← Estilos: cards, spinner, formulário, botão WhatsApp
 └── app.js        ← Lógica: Firebase, renderização, WhatsApp, validação
